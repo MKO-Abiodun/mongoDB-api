@@ -33,6 +33,23 @@ app.get('/todos/completed', async (req, res, next) => {
  }
 });
 
+//Get all - Dynamic  with query parameters
+app.get('/todos', async (req, res, next) => {
+  try {
+    const { completed } = req.query;
+    let filter = {};
+    if (completed === 'true') {
+      filter.completed = true;
+    } else if (completed === 'false') {
+      filter.completed = false;
+    }
+    const todos = await Todo.find(filter);
+    res.status(200).json(todos);
+  } catch (error) {
+    next(error); // Pass error to the error-handling middleware
+  }
+});
+
 // GET Single - Task 1 - MUST be AFTER /active and /completed
 app.get('/todos/:id', async (req, res, next) => {
  try {
