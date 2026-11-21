@@ -1,0 +1,18 @@
+const mongoose = require("mongoose");
+
+const todoSchema = new mongoose.Schema({
+    task: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 150,
+    },
+    completed: {
+        type: Boolean,
+        default: false,
+    }
+},  {timestamps: true},
+);
+const TodoModel = mongoose.model("Todo", todoSchema);
+
+module.exports = TodoModel;
